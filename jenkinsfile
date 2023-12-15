@@ -1,24 +1,44 @@
-pipeline{
-agent any
-stages 
-{
-stage('Build') 
-{
-steps{
-echo "Building the Project.........."
-}
-}
-stage('Test') 
-{
-steps{
-echo "Testing the Project.........."
-}
-}
-stage('Deploy') 
-{
-steps{
-echo "Deploying the Project.........."
-}
-}
-}
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                echo 'Cloning the GitHub repository...'
+                git 'https://github.com/your-username/your-repository.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                // Add your build commands here
+                sh 'mvn clean install' // Example Maven build command
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // Add your test commands here
+                sh 'mvn test' // Example Maven test command
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+                // Add your deployment commands here
+                // This could involve copying files, deploying to a server, etc.
+            }
+        }
+
+        stage('Release') {
+            steps {
+                echo 'Releasing the application...'
+                // Add your release commands here
+                // This could involve updating version numbers, tagging the repository, etc.
+            }
+        }
+    }
 }
